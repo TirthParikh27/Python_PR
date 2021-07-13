@@ -4,12 +4,7 @@ import subprocess
 
 app = Flask(__name__)
 
-def execute(cmd):
-  try:
-    retcode = subprocess.call(cmd, shell=True)
-  except OSError as e:
-    pass
-  
+
 @app.route('/')
 def execute2(cmd):
   try:
