@@ -53,13 +53,9 @@ jobs:
         run: 'pip3 install -r requirements.txt'
       
       
-#       - name: bootstraping
-#         id: cdk_bootstrap
-#         run: cdk bootstrap --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess
-      
-#       - name: deploy
-#         id: cdk_deploy
-#         run: cdk deploy \"AwesomeStack-${STAGE}\" --require-approval never --outputs-file cdk.out.json
+      - name: deploy
+        id: cdk_deploy
+        run: cdk deploy \"AwesomeStack-${STAGE}\" --require-approval never --outputs-file cdk.out.json
       
       - name: post deploy
         id: cdk_post_deploy
