@@ -36,7 +36,7 @@ jobs:
           aws-region: us-east-2
 
       - name: destroy the stack on AWS
-        run: yarn destroy
+        run: cdk destroy \"AwesomeStack-${STAGE}\" --force"
 
       - name: delete the github deployments and the corresponding environment
         uses: strumwolf/delete-deployment-environment@v1.1.0
