@@ -42,10 +42,16 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
-
-      - name: bootstraping
-        id: cdk_bootstrap
-        run: CDK_NEW_BOOTSTRAP=1 cdk bootstrap --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess
+      
+      - name: npm install
+        run: 'sudo apt update -y && sudo apt install nodejs npm -y'
+      
+      - name: cdk install
+        run: 'sudo npm install -g aws-cdk'
+      
+      - name: Installing pip dependencies
+        run: 'pip3 install -r requirements.txt'
+      
       
       - name: deploy
         id: cdk_deploy
@@ -53,22 +59,8 @@ jobs:
       
       - name: post deploy
         id: cdk_post_deploy
-        run: node --eval \"console.log('::set-output name=env_url::' + require('./cdk.out.json')['AwesomeStack-${STAGE}'].DeploymentUrl)\"
+        run: "node --eval \"console.log('::set-output name=env_url::' + require('./cdk.out.json')['AwesomeStack-${STAGE}'].DeploymentUrl)\""
       
-      
-      
-#       - name: Amazon CodeGuru Reviewer Scanner 
-#         uses: aws-actions/codeguru-reviewer@v1.1
-#         if: ${{ always() }} 
-#         with: 
-#           s3_bucket: 'codeguru-reviewer-pr' # S3 Bucket starting with "codeguru-reviewer-*"
-    
-#       - name: Upload review result 
-#         if: ${{ always() }} 
-#         uses: github/codeql-action/upload-sarif@v1 
-#         with: 
-#           sarif_file: codeguru-results.sarif.json
-    
       
       - name: update the github deployment status
         uses: bobheadxi/deployments@v0.5.2
@@ -78,4 +70,4 @@ jobs:
           token: ${{ secrets.PR_TOKEN || github.token }}
           status: ${{ job.status }}
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-          env_url: ${{ steps.cdk_deploy.outputs.env_url }}
+          env_url: ${{ steps.cdk_post_deploy.outputs.env_url }}
