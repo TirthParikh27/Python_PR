@@ -70,4 +70,4 @@ jobs:
           token: ${{ secrets.PR_TOKEN || github.token }}
           status: ${{ job.status }}
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-          env_url: ${{ steps.cdk_deploy.outputs.env_url }}
+          env_url: ${{ steps.cdk_post_deploy.outputs.env_url }}
