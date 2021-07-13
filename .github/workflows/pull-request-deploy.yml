@@ -45,15 +45,15 @@ jobs:
 
       - name: bootstraping
         id: cdk_bootstrap
-        run: cdk bootstrap --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess
+        run: npm deploy
       
-      - name: deploy
-        id: cdk_deploy
-        run: cdk deploy \"AwesomeStack-${STAGE}\" --require-approval never --outputs-file cdk.out.json
+#       - name: deploy
+#         id: cdk_deploy
+#         run: cdk deploy \"AwesomeStack-${STAGE}\" --require-approval never --outputs-file cdk.out.json
       
-      - name: post deploy
-        id: cdk_post_deploy
-        run: node --eval \"console.log('::set-output name=env_url::' + require('./cdk.out.json')['AwesomeStack-${STAGE}'].DeploymentUrl)\"
+#       - name: post deploy
+#         id: cdk_post_deploy
+#         run: node --eval \"console.log('::set-output name=env_url::' + require('./cdk.out.json')['AwesomeStack-${STAGE}'].DeploymentUrl)\"
       
       
       
