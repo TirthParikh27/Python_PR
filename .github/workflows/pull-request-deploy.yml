@@ -45,7 +45,7 @@ jobs:
 
       - name: bootstraping
         id: cdk_bootstrap
-        run: CDK_NEW_BOOTSTRAP=1 cdk bootstrap --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess
+        run: cdk bootstrap --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess
       
       - name: deploy
         id: cdk_deploy
