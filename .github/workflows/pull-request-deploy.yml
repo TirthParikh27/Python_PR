@@ -31,10 +31,10 @@ jobs:
       - name: checkout the files
         uses: actions/checkout@v2
 
-      - name: install node dependencies
-        uses: bahmutov/npm-install@v1
-        with:
-          useLockFile: false
+#       - name: install node dependencies
+#         uses: bahmutov/npm-install@v1
+#         with:
+#           useLockFile: false
 
       - name: configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -43,9 +43,19 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
 
-      - name: deploy the stack on AWS
+      - name: bootstraping
+        id: cdk_bootstrap
+        run: CDK_NEW_BOOTSTRAP=1 cdk bootstrap --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess
+      
+      - name: deploy
         id: cdk_deploy
-        run: yarn deploy
+        run: cdk deploy \"AwesomeStack-${STAGE}\" --require-approval never --outputs-file cdk.out.json
+      
+      - name: post deploy
+        id: cdk_post_deploy
+        run: node --eval \"console.log('::set-output name=env_url::' + require('./cdk.out.json')['AwesomeStack-${STAGE}'].DeploymentUrl)\"
+      
+      
       
 #       - name: Amazon CodeGuru Reviewer Scanner 
 #         uses: aws-actions/codeguru-reviewer@v1.1
