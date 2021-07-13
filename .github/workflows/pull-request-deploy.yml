@@ -42,10 +42,20 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
-
+      
+      - name: npm install
+        run: 'sudo apt update -y && sudo apt install nodejs npm -y'
+      
+      - name: cdk install
+        run: 'sudo npm install -g aws-cdk'
+      
+      - name: Installing pip dependencies
+        run: 'pip3 install -r requirements.txt'
+      
+      
       - name: bootstraping
         id: cdk_bootstrap
-        run: CDK_NEW_BOOTSTRAP=1 cdk bootstrap --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess
+        run: cdk bootstrap --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess
       
       - name: deploy
         id: cdk_deploy
