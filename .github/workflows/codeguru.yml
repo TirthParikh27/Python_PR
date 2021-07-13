@@ -8,8 +8,8 @@ on:
 jobs:
   code-security:
     if: |
-      (github.event.action == 'labeled' && github.event.label.name == 'PR-Deploy') ||
-      (github.event.action != 'labeled' && contains(github.event.pull_request.labels.*.name, 'PR-Deploy')) || 
+      (github.event.action == 'labeled' && github.event.label.name == 'PR-Deployed') ||
+      (github.event.action != 'labeled' && contains(github.event.pull_request.labels.*.name, 'PR-Deployed')) || 
       (github.ref == 'refs/heads/main')
       
     runs-on: ubuntu-latest
