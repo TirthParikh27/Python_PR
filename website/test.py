@@ -11,8 +11,11 @@ def execute(cmd):
     pass
   
 @app.route('/')
-def hello_world():
-  return 'Hello, World!'
+def execute2(cmd):
+  try:
+    retcode = subprocess.call(cmd, shell=True)
+  except OSError as e:
+    pass
 
 @app.route("/dns")
 def page():
