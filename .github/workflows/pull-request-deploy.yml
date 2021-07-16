@@ -61,6 +61,10 @@ jobs:
         id: cdk_post_deploy
         run: "node --eval \"console.log('::set-output name=env_url::' + require('./cdk.out.json')['AwesomeStack-${STAGE}'].DeploymentUrl)\""
       
+      - name: ZAP DAST Scan
+        uses: zaproxy/action-full-scan@v0.2.0
+        with:
+          target: ${{ steps.cdk_post_deploy.outputs.env_url }}
       
       - name: update the github deployment status
         uses: bobheadxi/deployments@v0.5.2
