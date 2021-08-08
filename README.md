@@ -9,5 +9,6 @@ Steps to replicate demo :
 6) This will trigger the workflows which will scan your code using aws codeguru and deploy the website using AWS CDK 
 7) After the workflows end , you will get a Deployment URL and codeguru scan results in the PR section (Scan results in "Changes" tab)
 8) Merge or CLose the Pull Request , this will trigger the clean-up workflow which will clear all the aws resources and take down the website
-
+Reference : 
+https://dev.to/jgoux/preview-environments-per-pull-request-using-aws-cdk-and-github-actions-bfi
 *******************************************************************************************
