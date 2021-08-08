@@ -1,5 +1,5 @@
-## Dynamic PR environments demo
-# Note : Aws credentials will be needed to be added to Github Secrets
+# Dynamic PR environments demo
+## Note : Aws credentials will be needed to be added to Github Secrets
 Steps to replicate demo :
 1) Clone the repository locally
 2) /website folder has the website that gets deployed to aws.
